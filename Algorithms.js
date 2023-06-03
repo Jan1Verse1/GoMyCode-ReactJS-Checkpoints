@@ -1,32 +1,27 @@
-ALGORITHM gmcCheckpointAlgo
-VAR
-    sentenceLength,numberWords,numberVowels,i,j,k : INTEGER;
-    Sentence : STRING;
-    sum : INTEGER := 0;
-BEGIN
-
-    Read(S);
-
-    WHILE(Sentence[i] <> ".") DO
-    sentenceLength := sentenceLength + 1;
-    i := i + 1 ;
-    END_WHILE
-
-    WHILE(j<sentenceLength) DO
-    IF(Sentence[j] = " ") THEN
-    numberWords := numberWords+1;
-    END_IF
-    j:=j+1;
-    END_WHILE
+function areVectorsOrthogonal(v1, v2) {
+    const dotProduct = dot_product(v1, v2);
+    return dotProduct === 0;
+  }
+  
+  function checkOrthogonality(vectorPairs) {
+    const results = [];
     
-    WHILE(k<sentenceLength) DO
-    IF(Sentence[k] = "a" OR Sentence[k] = "e" OR Sentence[k] = "i" OR Sentence[k] = "o" OR Sentence[k] = "u") THEN
-    numberWords := numberVowels+1;
-    END_IF
-    k:=k+1;
-    END_WHILE
+    for (let i = 0; i < vectorPairs.length; i++) {
+      const v1 = vectorPairs[i][0];
+      const v2 = vectorPairs[i][1];
+      
+      const isOrthogonal = areVectorsOrthogonal(v1, v2);
+      results.push(isOrthogonal);
+    }
+    
+    return results;
+  }
 
-    Write(sentenceLength,numberWords,numberVowels);
-
-END
-
+  const vectorPairs = [
+    [[1, 0], [0, 1]],   // Orthogonal vectors
+    [[1, 2], [3, 4]],   // Non-orthogonal vectors
+    [[-2, 4], [2, 1]]   // Non-orthogonal vectors
+  ];
+  
+  const results = checkOrthogonality(vectorPairs);
+  console.log(results); // Output: [true, false, false]
